@@ -29,7 +29,7 @@ const PerformanceMatrix = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
-          <div className="glass p-5 md:p-8 border-l-4 border-l-blue-500 group transition-all duration-500 hover:bg-blue-600/5">
+          <div className="glass p-5 md:p-8 border-l-4 border-l-blue-500 group transition-all duration-700 cubic-bezier(0.23, 1, 0.32, 1) hover:bg-blue-600/5 hover:translate-y-[-4px] transform-gpu">
             <div className="text-zinc-500 text-[9px] font-black uppercase tracking-widest mb-4">Network Throughput</div>
             <div className="text-3xl md:text-5xl lg:text-6xl font-syne font-black text-white mb-2 tracking-tighter">
               {metrics.throughput.toFixed(1)}<span className="text-blue-500">%</span>
@@ -39,7 +39,7 @@ const PerformanceMatrix = () => {
             </div>
           </div>
 
-          <div className="glass p-5 md:p-8 border-l-4 border-l-zinc-800 group transition-all duration-500 hover:border-l-blue-500 hover:bg-blue-600/5">
+          <div className="glass p-5 md:p-8 border-l-4 border-l-zinc-800 group transition-all duration-700 cubic-bezier(0.23, 1, 0.32, 1) hover:border-l-blue-500 hover:bg-blue-600/5 hover:translate-y-[-4px] transform-gpu">
             <div className="text-zinc-500 text-[9px] font-black uppercase tracking-widest mb-4">UX Latency (ms)</div>
             <div className="text-3xl md:text-5xl lg:text-6xl font-syne font-black text-white mb-2 tracking-tighter">
               {metrics.latency}<span className="text-blue-500">ms</span>
@@ -51,7 +51,7 @@ const PerformanceMatrix = () => {
             </div>
           </div>
 
-          <div className="glass p-5 md:p-8 border-l-4 border-l-zinc-800 group transition-all duration-500 hover:border-l-blue-500 hover:bg-blue-600/5">
+          <div className="glass p-5 md:p-8 border-l-4 border-l-zinc-800 group transition-all duration-700 cubic-bezier(0.23, 1, 0.32, 1) hover:border-l-blue-500 hover:bg-blue-600/5 hover:translate-y-[-4px] transform-gpu">
             <div className="text-zinc-500 text-[9px] font-black uppercase tracking-widest mb-4">Conversion Yield</div>
             <div className="text-3xl md:text-5xl lg:text-6xl font-syne font-black text-white mb-2 tracking-tighter">
               {metrics.conversion.toFixed(2)}<span className="text-blue-500">x</span>
@@ -73,7 +73,8 @@ export const TacticalButton: React.FC<{ to: string; children: React.ReactNode; c
   const handleActivation = (e: React.MouseEvent | React.TouchEvent) => {
     if (isActivating) return;
     setIsActivating(true);
-    setTimeout(() => navigate(to), 700);
+    // Sharp navigation for instant feel
+    navigate(to);
   };
 
   const isActive = isHovered || isActivating || isTouched;
@@ -87,21 +88,21 @@ export const TacticalButton: React.FC<{ to: string; children: React.ReactNode; c
       onPointerUp={() => setIsTouched(false)}
       onPointerCancel={() => setIsTouched(false)}
       onPointerLeave={() => setIsTouched(false)}
-      className={`${className} relative transition-all duration-300 transform-gpu overflow-hidden select-none will-change-[transform,background-color,box-shadow,color] flex items-center justify-center ${
+      className={`${className} relative transition-[transform,background-color,box-shadow] duration-150 cubic-bezier(0.23, 1, 0.32, 1) transform-gpu overflow-hidden select-none will-change-[transform,background-color,box-shadow] flex items-center justify-center ${
         isActive
-          ? 'scale-[0.98] bg-white text-blue-600 shadow-[0_0_50px_rgba(255,255,255,0.4)]' 
+          ? '!bg-blue-600 !text-white scale-[0.97] shadow-[0_15px_45px_rgba(59,130,246,0.3)]' 
           : 'active:scale-95'
       }`}
     >
-      <div className={`w-full h-full flex items-center justify-center transition-[transform,opacity] duration-300 ease-out will-change-[transform,opacity] px-6 ${isActive ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
+      <div className={`w-full h-full flex items-center justify-center transition-[transform,opacity] duration-150 cubic-bezier(0.23, 1, 0.32, 1) px-6 ${isActive ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
         {children}
       </div>
-      <div className={`absolute inset-0 flex items-center justify-center font-syne font-black text-blue-600 uppercase tracking-tighter text-xs sm:text-sm transition-[transform,opacity] duration-300 ease-out will-change-[transform,opacity] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className={`absolute inset-0 flex items-center justify-center font-syne font-black !text-white uppercase tracking-tighter text-xs sm:text-sm transition-[transform,opacity] duration-150 cubic-bezier(0.23, 1, 0.32, 1) ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
         <span className={isActivating ? 'animate-pulse' : ''}>
           {isActivating ? 'Linking...' : 'Book My Slot'}
         </span>
       </div>
-      <div className={`absolute bottom-0 left-0 h-1 w-full bg-blue-500/60 origin-left transition-transform duration-[700ms] ease-out will-change-transform ${isActivating ? 'scale-x-100' : 'scale-x-0'}`}></div>
+      <div className={`absolute bottom-0 left-0 h-1 w-full bg-white/20 origin-left transition-transform duration-200 cubic-bezier(0.23, 1, 0.32, 1) ${isActivating ? 'scale-x-100' : 'scale-x-0'}`}></div>
     </button>
   );
 };
@@ -124,8 +125,8 @@ const AnimatedTestimonialCard: React.FC<{ testimonial: typeof TESTIMONIALS[0]; i
   return (
     <div 
       ref={cardRef}
-      style={{ transitionDelay: `${index * 100}ms` }}
-      className={`group glass p-5 md:p-8 flex flex-col h-full hover:translate-y-[-8px] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+      style={{ transitionDelay: `${index * 50}ms` }}
+      className={`group glass p-5 md:p-8 flex flex-col h-full hover:translate-y-[-8px] transform-gpu transition-all duration-700 cubic-bezier(0.23, 1, 0.32, 1) ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
     >
       <div className="flex justify-between items-start mb-6">
         <div className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-[8px] font-black text-blue-500 uppercase tracking-widest">NDA: Verified</div>
@@ -134,13 +135,13 @@ const AnimatedTestimonialCard: React.FC<{ testimonial: typeof TESTIMONIALS[0]; i
         </div>
       </div>
       <div className="flex-grow">
-        <h3 className="text-white font-syne font-bold text-lg md:text-xl lg:text-2xl mb-3 uppercase tracking-tighter group-hover:text-blue-400 transition-colors leading-tight">{testimonial.industry}</h3>
+        <h3 className="text-white font-syne font-bold text-lg md:text-xl lg:text-2xl mb-3 uppercase tracking-tighter group-hover:text-blue-400 transition-colors duration-500 leading-tight">{testimonial.industry}</h3>
         <p className="text-zinc-400 text-[11px] md:text-xs mb-5 opacity-90 leading-relaxed font-medium">{testimonial.impact}</p>
-        <div className="p-4 bg-zinc-950/40 border border-zinc-900 rounded-2xl text-zinc-300 text-xs italic leading-relaxed">
+        <div className="p-4 bg-zinc-950/40 border border-zinc-900 rounded-2xl text-zinc-300 text-xs italic leading-relaxed transition-all group-hover:bg-zinc-900/60">
           "{testimonial.quote}"
         </div>
       </div>
-      <Link to={`/case-study/${testimonial.slug}`} className="mt-8 text-[9px] font-black text-blue-500 uppercase tracking-widest hover:translate-x-3 transition-transform inline-flex items-center gap-2">
+      <Link to={`/case-study/${testimonial.slug}`} className="mt-8 text-[9px] font-black text-blue-500 uppercase tracking-widest hover:translate-x-3 transition-transform duration-500 inline-flex items-center gap-2">
         NDA Deep-Dive <span className="text-base">→</span>
       </Link>
     </div>
@@ -161,20 +162,20 @@ const Home: React.FC = () => {
   return (
     <div className="relative overflow-x-hidden w-full">
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-[-1]">
+        <div className="absolute inset-0 z-[-1] transform-gpu">
           <Suspense fallback={null}><HeroVisual /></Suspense>
         </div>
         
         <div className="max-w-7xl mx-auto w-full relative z-10 reveal">
           <div className="text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
-            <div className="inline-flex items-center px-3 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-500 text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-6 group cursor-default shadow-lg shadow-blue-500/5">
+            <div className="inline-flex items-center px-3 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-500 text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-6 group cursor-default shadow-lg shadow-blue-500/5 transition-all duration-500">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 animate-ping"></span>
               Performance Engine v2.0
             </div>
             
             <h1 className="hero-title font-syne font-extrabold text-white tracking-tighter mb-6 cursor-default uppercase">
               MAX OUT <br />
-              YOUR <span className="text-blue-500 inline-block min-w-[100px] md:min-w-[150px] transition-all duration-300">{outcomes[outcomeIdx]}</span> <br />
+              YOUR <span className="text-blue-500 inline-block min-w-[100px] md:min-w-[150px] transition-all duration-500 ease-out">{outcomes[outcomeIdx]}</span> <br />
               <span className="text-stroke hover:text-white transition-colors duration-1000">MACHINES.</span>
             </h1>
             
@@ -186,7 +187,7 @@ const Home: React.FC = () => {
               <TacticalButton to="/contact" className="group relative w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-blue-600 rounded-full font-black text-xs md:text-sm lg:text-base shadow-2xl shadow-blue-600/30">
                 <span className="relative z-10 text-white uppercase tracking-tighter">{BRAND.primaryCTA}</span>
               </TacticalButton>
-              <Link to="/how-it-works" className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 border border-zinc-800 hover:border-blue-500 hover:bg-zinc-900/40 rounded-full font-black text-xs md:text-sm lg:text-base transition-all text-center uppercase tracking-tighter text-zinc-500 flex items-center justify-center hover:bg-zinc-800/60 active:scale-95">
+              <Link to="/how-it-works" className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 border border-zinc-800 hover:border-blue-500 hover:bg-zinc-900/40 rounded-full font-black text-xs md:text-sm lg:text-base transition-all duration-200 text-center uppercase tracking-tighter text-zinc-500 flex items-center justify-center active:scale-95 transform-gpu">
                 Methodology
               </Link>
             </div>
@@ -198,7 +199,7 @@ const Home: React.FC = () => {
         <div className="marquee overflow-hidden flex whitespace-nowrap group">
           <div className="marquee-content flex gap-10 sm:gap-16 animate-[scroll_45s_linear_infinite]">
             {industries.concat(industries).map((tag, i) => (
-              <div key={i} className="flex items-center gap-6 text-zinc-800 hover:text-blue-500 transition-colors font-syne font-black text-2xl md:text-4xl lg:text-5xl uppercase tracking-tighter">
+              <div key={i} className="flex items-center gap-6 text-zinc-800 hover:text-blue-500 transition-colors duration-500 font-syne font-black text-2xl md:text-4xl lg:text-5xl uppercase tracking-tighter">
                 <span>{tag}</span>
                 <div className="w-2 md:w-4 h-2 md:h-4 bg-blue-500 rounded-full"></div>
               </div>
@@ -223,11 +224,11 @@ const Home: React.FC = () => {
 
       <section className="py-20 md:py-32 px-4 sm:px-6 reveal overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="glass p-8 sm:p-20 md:p-24 text-center relative overflow-hidden group">
+          <div className="glass p-8 sm:p-20 md:p-24 text-center relative overflow-hidden group transform-gpu">
             <h2 className="section-title font-syne font-black text-white mb-10 sm:mb-12 tracking-tighter uppercase leading-[0.95] transform group-hover:scale-[1.01] transition-transform duration-1000">
               READY TO <br /><span className="text-blue-500 italic">INTAKE?</span>
             </h2>
-            <TacticalButton to="/contact" className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white text-black rounded-full font-syne font-black text-xs md:text-sm lg:text-base hover:bg-blue-600 hover:text-white transition-all shadow-4xl uppercase tracking-tighter mx-auto">
+            <TacticalButton to="/contact" className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white text-black rounded-full font-syne font-black text-xs md:text-sm lg:text-base shadow-2xl uppercase tracking-tighter mx-auto transform-gpu">
               Secure My Slot
             </TacticalButton>
           </div>

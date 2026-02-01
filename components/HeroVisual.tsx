@@ -154,8 +154,15 @@ const HeroVisual: React.FC = () => {
       }
     };
 
+    let scrollTicking = false;
     const handleScroll = () => {
-      scrollRef.current = window.scrollY;
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          scrollRef.current = window.scrollY;
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
     };
 
     window.addEventListener('resize', resize);

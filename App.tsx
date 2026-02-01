@@ -17,7 +17,12 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useLayoutEffect(() => {
-    window.scrollTo(0, 0);
+    // Changed behavior from 'smooth' to 'auto' for instant response
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto'
+    });
   }, [pathname]);
   return null;
 };
@@ -35,12 +40,13 @@ const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     setIsReady(false);
-    const timeout = setTimeout(() => setIsReady(true), 50);
+    // Instant entry for high-velocity feel
+    const timeout = setTimeout(() => setIsReady(true), 10);
     return () => clearTimeout(timeout);
   }, [pathname]);
 
   return (
-    <div className={`transition-all duration-500 ease-out transform-gpu min-h-screen flex flex-col ${isReady ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`transition-all duration-250 cubic-bezier(0.23, 1, 0.32, 1) transform-gpu min-h-screen flex flex-col ${isReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
       {children}
     </div>
   );

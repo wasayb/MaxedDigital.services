@@ -19,13 +19,36 @@ const About: React.FC = () => {
             </p>
             
             <div className="grid grid-cols-2 gap-4 max-w-md mx-auto lg:mx-0">
-              <div className="p-5 sm:p-8 glass rounded-[2rem] group transition-all duration-700">
+              <div className="p-5 sm:p-8 glass rounded-[2rem] group transition-all duration-700 flex flex-col items-center lg:items-start">
                 <div className="text-2xl sm:text-4xl md:text-5xl font-syne font-bold text-white mb-1 group-hover:text-blue-500 transition-colors tracking-tighter">14</div>
-                <div className="text-zinc-600 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em]">Day Cycle</div>
+                <div className="text-zinc-600 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] mb-4">Day Cycle</div>
+                <div className="w-full aspect-video rounded-xl overflow-hidden relative bg-zinc-900 border border-white/5 shadow-inner">
+                  <img 
+                    src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=400&auto=format&fit=crop" 
+                    alt="High Velocity Execution" 
+                    className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700 ease-out transform-gpu"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="absolute bottom-2 left-2 flex gap-1">
+                    <div className="w-1 h-1 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div className="w-1 h-1 bg-blue-500/50 rounded-full animate-pulse delay-150"></div>
+                  </div>
+                </div>
               </div>
-              <div className="p-5 sm:p-8 glass rounded-[2rem] group transition-all duration-700">
+              <div className="p-5 sm:p-8 glass rounded-[2rem] group transition-all duration-700 flex flex-col items-center lg:items-start">
                 <div className="text-2xl sm:text-4xl md:text-5xl font-syne font-bold text-white mb-1 group-hover:text-blue-500 transition-colors tracking-tighter">100%</div>
-                <div className="text-zinc-600 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em]">In-House</div>
+                <div className="text-zinc-600 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] mb-4">In-House</div>
+                <div className="w-full aspect-video rounded-xl overflow-hidden relative bg-zinc-900 border border-white/5 shadow-inner">
+                  <img 
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=400&auto=format&fit=crop" 
+                    alt="Surgical Precision Team" 
+                    className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700 ease-out transform-gpu"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="absolute bottom-2 left-2">
+                    <span className="text-[6px] font-mono text-zinc-500 uppercase tracking-widest">SECURE_WORKSTATION_ACTIVE</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

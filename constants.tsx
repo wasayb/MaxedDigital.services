@@ -5,7 +5,7 @@ export const BRAND = {
   name: "MaxedDigital",
   domain: "MaxedDigital.services",
   email: "maxeddigital.services@gmail.com",
-  instagram: "https://www.instagram.com/maxeddigital.hq?igsh=MWNoOHVnbXdnZWw2dg==",
+  instagram: "https://www.instagram.com/maxeddigital.services?igsh=MWNoOHVnbXdnZWw2dg==",
   tagline: "The High-Velocity Performance Partner",
   headline: "Scale Your Service Business with Conversion-First Digital Architecture",
   subheadline: "We don't build websites. We engineer high-yield conversion machines for elite service providers ready to dominate their market.",

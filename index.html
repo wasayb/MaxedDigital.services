@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="overflow-x-hidden scroll-smooth">
+<html lang="en" class="overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -12,17 +12,21 @@
         :root {
             --primary: #3b82f6;
             --bg-dark: #020204;
-            --mouse-x: 50%;
-            --mouse-y: 50%;
-            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            /* Optimized Quintic curve for high-velocity feel */
+            --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
         }
         
+        html {
+            scroll-padding-top: 80px;
+        }
+
         html, body {
             overflow-x: hidden;
             width: 100%;
             position: relative;
             background-color: var(--bg-dark);
             -webkit-text-size-adjust: 100%;
+            text-rendering: optimizeSpeed;
         }
 
         body {
@@ -43,42 +47,47 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            will-change: transform, opacity;
+            will-change: transform;
             transform: translateZ(0);
         }
 
+        /* Optimized Glassmorphism: Reduced blur and added containment */
         .glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
-            transition: all 0.4s var(--transition-smooth);
+            transition: transform 0.4s var(--transition-smooth), opacity 0.4s var(--transition-smooth), border-color 0.4s var(--transition-smooth);
             border-radius: 1.25rem;
+            will-change: transform;
+            transform: translateZ(0);
+            contain: content;
         }
         
         @media (max-width: 640px) {
             .glass {
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
             }
         }
 
         .glass:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
-            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
+            transform: translateY(-4px) translateZ(0);
         }
 
+        /* Snappier reveal animations (reduced from 1s to 0.5s) */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+            transform: translateY(15px) translateZ(0);
+            transition: opacity 0.5s var(--transition-smooth), transform 0.5s var(--transition-smooth);
+            will-change: transform, opacity;
         }
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0);
         }
 
         .noise-overlay {
@@ -89,6 +98,8 @@
         }
 
         .interactive-grid {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
             background-image: 
                 linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
@@ -96,6 +107,7 @@
             z-index: -15;
             mask-image: radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0%, transparent 70%);
             -webkit-mask-image: radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0%, transparent 70%);
+            will-change: mask-image;
         }
 
         .mesh-gradient { z-index: -25; background: #010102; }
@@ -106,11 +118,12 @@
             filter: blur(140px);
             opacity: 0.03;
             will-change: transform;
+            transform: translateZ(0);
         }
         .blob-1 { background: #3b82f6; top: -20%; left: -30%; animation: drift 35s infinite alternate linear; }
         .blob-2 { background: #1e3a8a; bottom: -20%; right: -30%; animation: drift 45s infinite alternate-reverse linear; }
 
-        @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(8%, 12%); } }
+        @keyframes drift { from { transform: translate(0, 0) translateZ(0); } to { transform: translate(8%, 12%) translateZ(0); } }
 
         .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); color: transparent; }
         
@@ -118,7 +131,6 @@
         scrollbar-width: none;
         -ms-overflow-style: none;
         
-        /* Balanced Clamps - High legibility, no clipping */
         .hero-title {
             font-size: clamp(1.75rem, 8vw, 4.5rem);
             line-height: 1.1;
@@ -134,15 +146,22 @@
             word-wrap: break-word;
         }
 
-        /* Generic interactive class for buttons */
         .interactive-scale {
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.3s var(--transition-smooth);
+            will-change: transform;
+            transform: translateZ(0);
         }
         .interactive-scale:hover {
-            transform: scale(1.03);
+            transform: scale(1.02) translateZ(0);
         }
         .interactive-scale:active {
-            transform: scale(0.96);
+            transform: scale(0.98) translateZ(0);
+        }
+
+        /* Improved scrolling performance by isolating layouts */
+        section {
+            contain: layout paint;
+            transform: translateZ(0);
         }
 
         @media (max-width: 480px) {
@@ -179,10 +198,19 @@
     <script type="module" src="/index.tsx"></script>
 
     <script>
+        // Optimization: Targeted property updates to prevent doc-wide reflows
+        let ticking = false;
+        const grid = document.querySelector('.interactive-grid');
         window.addEventListener('mousemove', (e) => {
-            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-        });
+            if (!ticking && grid) {
+                window.requestAnimationFrame(() => {
+                    grid.style.setProperty('--mouse-x', `${e.clientX}px`);
+                    grid.style.setProperty('--mouse-y', `${e.clientY}px`);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
 
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -190,7 +218,7 @@
                     entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
         const setupObserver = () => {
             document.querySelectorAll('.reveal:not(.active)').forEach(el => revealObserver.observe(el));

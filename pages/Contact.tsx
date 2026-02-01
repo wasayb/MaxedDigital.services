@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-syne font-bold text-sm sm:text-lg mb-1 uppercase tracking-tight">Instagram</h4>
-                  <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-blue-500 transition-colors font-medium text-xs sm:text-lg lowercase block">@maxeddigital.hq</a>
+                  <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-blue-500 transition-colors font-medium text-xs sm:text-lg lowercase block">@maxeddigital.services</a>
                 </div>
               </div>
             </div>
