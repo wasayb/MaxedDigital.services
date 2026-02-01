@@ -1,20 +1,32 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# MaxedDigital
 
-# Run and deploy your AI Studio app
+**MaxedDigital** – Modern digital & software agency website built with **Next.js** and **Tailwind CSS**. Fully responsive and **Vercel-ready**.
 
-This contains everything you need to run your app locally.
+## About
+MaxedDigital is a professional digital and software agency offering high-quality services to clients worldwide. Our focus is on delivering clean, modern, and efficient solutions.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1RlJK2Lp_82xZgj8l-nJL-eTntCYPi7YK
+## Services
+We provide the following services:
 
-## Run Locally
+- Web Development  
+- UI/UX Design  
+- Mobile App Development  
+- Software Development  
+- Digital Marketing  
+- Performance Marketing  
+- Social Media Marketing  
+- Graphic Design  
+- Branding & Identity  
+- SEO Optimization  
 
-**Prerequisites:**  Node.js
+## Tech Stack
+- **Frontend:** Next.js (Pages Router)  
+- **Styling:** Tailwind CSS  
+- **Deployment:** Vercel  
 
+## Deployment
+This project is ready to deploy as a **static Next.js website** via [Vercel](https://vercel.com).
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+
+> **Note:** This repository contains the official MaxedDigital website. All code and assets are production-ready.
