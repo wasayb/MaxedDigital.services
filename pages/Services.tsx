@@ -49,7 +49,7 @@ const ParallaxServiceCard: React.FC<{ service: Service; idx: number }> = ({ serv
               <div className="text-[10px] font-black text-white">99.9%</div>
             </div>
             <div className="bg-white/[0.02] p-3 group-hover:bg-white/[0.04] transition-colors">
-              <div className="text-[7px] text-zinc-600 uppercase mb-1">Impact</div>
+              <div className="text-[7px] text-zinc-600 uppercase mb-1">Tier</div>
               <div className="text-[10px] font-black text-blue-500">High</div>
             </div>
           </div>

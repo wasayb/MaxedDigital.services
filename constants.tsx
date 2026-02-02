@@ -8,7 +8,7 @@ export const BRAND = {
   instagram: "https://www.instagram.com/maxeddigital.services?igsh=MWNoOHVnbXdnZWw2dg==",
   tagline: "The High-Velocity Performance Partner",
   headline: "Scale Your Service Business with Conversion-First Digital Architecture",
-  subheadline: "We don't build websites. We engineer high-yield conversion machines for elite service providers ready to dominate their market.",
+  subheadline: "We don't build websites. We engineer high-yield conversion machines for performance-driven service providers ready to dominate their market.",
   primaryCTA: "Request Conversion Audit",
   secondaryCTA: "View Methodology",
   pricingAnchor: "Strategic engagements typically range from $2.5k - $12k+ depending on complexity and revenue targets."
