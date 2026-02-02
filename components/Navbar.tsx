@@ -127,7 +127,10 @@ const Navbar: React.FC = () => {
                 className={`block text-4xl sm:text-5xl font-syne font-black text-white hover:text-blue-500 transition-all duration-300 cubic-bezier(0.23, 1, 0.32, 1) transform transform-gpu tracking-tighter ${
                   isOpen ? 'translate-x-0 opacity-100' : '-translate-x-5 opacity-0'
                 }`}
-                style={{ transitionDelay: `${isOpen ? 50 + idx * 30 : 0}ms` }}
+                style={{ 
+                  transitionDelay: `${isOpen ? 50 + idx * 30 : 0}ms`,
+                  textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+                }}
               >
                 {link.name}
               </Link>
@@ -145,16 +148,16 @@ const Navbar: React.FC = () => {
 
           <div className={`p-10 mt-auto border-t border-white/5 flex flex-col items-start gap-6 transition-all duration-500 cubic-bezier(0.23, 1, 0.32, 1) transform-gpu ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '250ms' }}>
             <div className="flex flex-col gap-1">
-              <span className="text-[8px] font-black text-zinc-700 uppercase tracking-[0.4em]">Direct Uplinks</span>
+              <span className="text-[8px] font-black text-zinc-600 uppercase tracking-[0.4em]">Direct Uplinks</span>
               <div className="flex gap-6">
-                <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-[0.2em] transition-all duration-200">Instagram</a>
-                <a href={`mailto:${BRAND.email}`} className="text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-[0.2em] transition-all duration-200">Email</a>
+                <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black text-zinc-400 hover:text-white uppercase tracking-[0.2em] transition-all duration-200">Instagram</a>
+                <a href={`mailto:${BRAND.email}`} className="text-[10px] font-black text-zinc-400 hover:text-white uppercase tracking-[0.2em] transition-all duration-200">Email</a>
               </div>
             </div>
             
-            <div className="flex items-center gap-2 bg-zinc-950/50 px-3 py-1.5 rounded-lg border border-zinc-900 transition-all duration-300 transform-gpu hover:border-zinc-700">
-              <span className="w-1 h-1 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.4)]"></span>
-              <span className="text-[7px] font-mono text-zinc-600 uppercase tracking-[0.3em]">Status: Optimal</span>
+            <div className="flex items-center gap-2 bg-zinc-950/60 px-3 py-1.5 rounded-lg border border-zinc-800 transition-all duration-300 transform-gpu hover:border-zinc-700">
+              <span className="w-1 h-1 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+              <span className="text-[7px] font-mono text-zinc-400 uppercase tracking-[0.3em]">Status: Optimal</span>
             </div>
           </div>
         </div>

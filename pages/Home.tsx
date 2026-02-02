@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { BRAND, SERVICES, TESTIMONIALS } from '../constants';
-
-const HeroVisual = lazy(() => import('../components/HeroVisual'));
+import { Link } from 'react-router-dom';
+import { BRAND, SERVICES, TESTIMONIALS } from '../constants.tsx';
+import TacticalButton from '../components/TacticalButton.tsx';
+import NeuralBackground from '../components/ui/flow-field-background.tsx';
 
 const PerformanceMatrix = () => {
   const [metrics, setMetrics] = useState({ throughput: 94.2, latency: 12, conversion: 8.4 });
@@ -64,49 +64,6 @@ const PerformanceMatrix = () => {
   );
 };
 
-export const TacticalButton: React.FC<{ to: string; children: React.ReactNode; className: string }> = ({ to, children, className }) => {
-  const [isActivating, setIsActivating] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isTouched, setIsTouched] = useState(false);
-  const navigate = useNavigate();
-
-  const handleActivation = (e: React.MouseEvent | React.TouchEvent) => {
-    if (isActivating) return;
-    setIsActivating(true);
-    // Sharp navigation for instant feel
-    navigate(to);
-  };
-
-  const isActive = isHovered || isActivating || isTouched;
-
-  return (
-    <button 
-      onClick={handleActivation}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => { setIsHovered(false); setIsTouched(false); }}
-      onPointerDown={() => setIsTouched(true)}
-      onPointerUp={() => setIsTouched(false)}
-      onPointerCancel={() => setIsTouched(false)}
-      onPointerLeave={() => setIsTouched(false)}
-      className={`${className} relative transition-[transform,background-color,box-shadow] duration-150 cubic-bezier(0.23, 1, 0.32, 1) transform-gpu overflow-hidden select-none will-change-[transform,background-color,box-shadow] flex items-center justify-center ${
-        isActive
-          ? '!bg-blue-600 !text-white scale-[0.97] shadow-[0_15px_45px_rgba(59,130,246,0.3)]' 
-          : 'active:scale-95'
-      }`}
-    >
-      <div className={`w-full h-full flex items-center justify-center transition-[transform,opacity] duration-150 cubic-bezier(0.23, 1, 0.32, 1) px-6 ${isActive ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
-        {children}
-      </div>
-      <div className={`absolute inset-0 flex items-center justify-center font-syne font-black !text-white uppercase tracking-tighter text-xs sm:text-sm transition-[transform,opacity] duration-150 cubic-bezier(0.23, 1, 0.32, 1) ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
-        <span className={isActivating ? 'animate-pulse' : ''}>
-          {isActivating ? 'Linking...' : 'Book My Slot'}
-        </span>
-      </div>
-      <div className={`absolute bottom-0 left-0 h-1 w-full bg-white/20 origin-left transition-transform duration-200 cubic-bezier(0.23, 1, 0.32, 1) ${isActivating ? 'scale-x-100' : 'scale-x-0'}`}></div>
-    </button>
-  );
-};
-
 const AnimatedTestimonialCard: React.FC<{ testimonial: typeof TESTIMONIALS[0]; index: number }> = ({ testimonial, index }) => {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -151,22 +108,63 @@ const AnimatedTestimonialCard: React.FC<{ testimonial: typeof TESTIMONIALS[0]; i
 const Home: React.FC = () => {
   const [outcomeIdx, setOutcomeIdx] = useState(0);
   const outcomes = ["CONVERSION", "REVENUE", "GROWTH", "AUTHORITY"];
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => setOutcomeIdx(prev => (prev + 1) % outcomes.length), 2500);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePos({
+          x: (e.clientX - rect.left) / rect.width - 0.5,
+          y: (e.clientY - rect.top) / rect.height - 0.5
+        });
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const industries = ["FINTECH", "SAAS", "REAL ESTATE", "CONSULTING", "HEALTHCARE", "LAW FIRMS"];
 
   return (
     <div className="relative overflow-x-hidden w-full">
-      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-[-1] transform-gpu">
-          <Suspense fallback={null}><HeroVisual /></Suspense>
+      <section 
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 pb-20 overflow-hidden"
+      >
+        <div className="absolute inset-0 z-[-1] transform-gpu pointer-events-none overflow-hidden">
+          <NeuralBackground 
+            color="#3b82f6"
+            trailOpacity={0.08}
+            particleCount={500}
+            speed={0.6}
+            className="opacity-40"
+          />
+          
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-square border border-blue-500/5 rounded-full animate-[spin_120s_linear_infinite] opacity-30"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] aspect-square border border-blue-500/5 rounded-full animate-[spin_80s_linear_infinite_reverse] opacity-20"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-square border border-blue-500/5 rounded-full animate-[spin_180s_linear_infinite] opacity-10"></div>
+          
+          <div 
+            className="absolute w-[600px] h-[600px] bg-blue-500/5 blur-[150px] rounded-full transition-all duration-700 pointer-events-none hidden lg:block"
+            style={{ 
+              left: `calc(50% + ${mousePos.x * 100}%)`, 
+              top: `calc(50% + ${mousePos.y * 100}%)`,
+              transform: 'translate(-50%, -50%)'
+            }}
+          ></div>
         </div>
         
-        <div className="max-w-7xl mx-auto w-full relative z-10 reveal">
+        <div 
+          className="max-w-7xl mx-auto w-full relative z-10 reveal transition-transform duration-500 ease-out"
+          style={{ transform: `perspective(1000px) rotateX(${mousePos.y * -3}deg) rotateY(${mousePos.x * 3}deg)` }}
+        >
           <div className="text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
             <div className="inline-flex items-center px-3 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-500 text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-6 group cursor-default shadow-lg shadow-blue-500/5 transition-all duration-500">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 animate-ping"></span>

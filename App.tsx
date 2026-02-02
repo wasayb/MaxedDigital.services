@@ -1,23 +1,22 @@
 import React, { useEffect, useState, useLayoutEffect, Suspense, lazy } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/Navbar.tsx';
+import Footer from './components/Footer.tsx';
 
 // Performance Optimization: Route-based Lazy Loading
-const Home = lazy(() => import('./pages/Home'));
-const Services = lazy(() => import('./pages/Services'));
-const HowItWorks = lazy(() => import('./pages/HowItWorks'));
-const About = lazy(() => import('./pages/About'));
-const FAQ = lazy(() => import('./pages/FAQ'));
-const Contact = lazy(() => import('./pages/Contact'));
-const CaseStudy = lazy(() => import('./pages/CaseStudy'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const Home = lazy(() => import('./pages/Home.tsx'));
+const Services = lazy(() => import('./pages/Services.tsx'));
+const HowItWorks = lazy(() => import('./pages/HowItWorks.tsx'));
+const About = lazy(() => import('./pages/About.tsx'));
+const FAQ = lazy(() => import('./pages/FAQ.tsx'));
+const Contact = lazy(() => import('./pages/Contact.tsx'));
+const CaseStudy = lazy(() => import('./pages/CaseStudy.tsx'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.tsx'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService.tsx'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useLayoutEffect(() => {
-    // Changed behavior from 'smooth' to 'auto' for instant response
     window.scrollTo({
       top: 0,
       left: 0,
@@ -27,7 +26,6 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Simplified Loading State for smooth transitions
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="w-8 h-8 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
@@ -40,7 +38,6 @@ const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     setIsReady(false);
-    // Instant entry for high-velocity feel
     const timeout = setTimeout(() => setIsReady(true), 10);
     return () => clearTimeout(timeout);
   }, [pathname]);

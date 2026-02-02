@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
-import { BRAND } from '../constants';
+import { BRAND } from '../constants.tsx';
 
-const ArchitectureVisualizer = lazy(() => import('../components/ArchitectureVisualizer'));
+const ArchitectureVisualizer = lazy(() => import('../components/ArchitectureVisualizer.tsx'));
 
 const About: React.FC = () => {
   return (

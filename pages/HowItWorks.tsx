@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { PROCESS, BRAND } from '../constants';
-import { Link, useNavigate } from 'react-router-dom';
-import { TacticalButton } from './Home';
+import React from 'react';
+import { PROCESS } from '../constants.tsx';
+import TacticalButton from '../components/TacticalButton.tsx';
 
 const HowItWorks: React.FC = () => {
   return (
@@ -19,14 +18,12 @@ const HowItWorks: React.FC = () => {
         </header>
 
         <div className="relative">
-          {/* Vertical Visual Connector */}
           <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/40 via-blue-500/10 to-transparent -translate-x-1/2 opacity-30"></div>
 
           <div className="space-y-16 md:space-y-32">
             {PROCESS.map((step, idx) => (
               <div key={idx} className={`relative flex flex-col md:flex-row items-start md:items-center gap-10 lg:gap-12 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''} reveal`}>
                 
-                {/* Process Content Card */}
                 <div className="flex-1 w-full z-10 pl-16 md:pl-0">
                   <div className={`glass p-6 sm:p-10 md:p-12 hover:translate-y-[-8px] transition-all duration-1000 group relative overflow-hidden ${idx % 2 === 0 ? 'md:ml-16' : 'md:mr-16 md:text-right'}`}>
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
@@ -50,7 +47,6 @@ const HowItWorks: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Central Phase Indicator */}
                 <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-10 h-10 md:w-16 md:h-16 bg-zinc-950 border border-zinc-900 text-white font-syne font-black rounded-full z-20 shadow-[0_0_30px_rgba(0,0,0,0.9)] group-hover:border-blue-500 group-hover:text-blue-500 transition-all duration-700">
                   <div className="absolute inset-0 rounded-full border border-blue-500/10 scale-125 animate-pulse"></div>
                   <span className="text-base md:text-xl">{idx + 1}</span>

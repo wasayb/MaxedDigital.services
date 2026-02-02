@@ -18,6 +18,7 @@
         
         html {
             scroll-padding-top: 80px;
+            height: -webkit-fill-available;
         }
 
         html, body {
@@ -27,12 +28,13 @@
             background-color: var(--bg-dark);
             -webkit-text-size-adjust: 100%;
             text-rendering: optimizeSpeed;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             color: white;
-            min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             line-height: 1.6;
@@ -42,22 +44,22 @@
 
         .fixed-layer {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
             will-change: transform;
             transform: translateZ(0);
+            z-index: -1;
         }
 
-        /* Optimized Glassmorphism: Reduced blur and added containment */
+        /* Enhanced Glassmorphism: Increased blur and refined border for readability */
         .glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s var(--transition-smooth), opacity 0.4s var(--transition-smooth), border-color 0.4s var(--transition-smooth);
             border-radius: 1.25rem;
             will-change: transform;
@@ -67,14 +69,15 @@
         
         @media (max-width: 640px) {
             .glass {
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
             }
         }
 
         .glass:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-color: rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
             transform: translateY(-4px) translateZ(0);
         }
 
@@ -101,31 +104,31 @@
             --mouse-x: 50%;
             --mouse-y: 50%;
             background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+                linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: -15;
-            mask-image: radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0%, transparent 70%);
-            -webkit-mask-image: radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0%, transparent 70%);
+            mask-image: radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0%, transparent 80%);
             will-change: mask-image;
         }
 
         .mesh-gradient { z-index: -25; background: #010102; }
         .mesh-blob {
             position: absolute;
-            width: 100vw;
-            height: 100vw;
+            width: 120vw;
+            height: 120vw;
             filter: blur(140px);
-            opacity: 0.03;
+            opacity: 0.04;
             will-change: transform;
             transform: translateZ(0);
         }
         .blob-1 { background: #3b82f6; top: -20%; left: -30%; animation: drift 35s infinite alternate linear; }
         .blob-2 { background: #1e3a8a; bottom: -20%; right: -30%; animation: drift 45s infinite alternate-reverse linear; }
 
-        @keyframes drift { from { transform: translate(0, 0) translateZ(0); } to { transform: translate(8%, 12%) translateZ(0); } }
+        @keyframes drift { from { transform: translate(0, 0) translateZ(0); } to { transform: translate(5%, 10%) translateZ(0); } }
 
-        .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); color: transparent; }
+        .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3); color: transparent; }
         
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         scrollbar-width: none;
@@ -137,6 +140,7 @@
             letter-spacing: -0.04em;
             word-wrap: break-word;
             overflow-wrap: break-word;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .section-title {
@@ -144,6 +148,7 @@
             line-height: 1.2;
             letter-spacing: -0.03em;
             word-wrap: break-word;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .interactive-scale {
@@ -162,6 +167,7 @@
         section {
             contain: layout paint;
             transform: translateZ(0);
+            position: relative;
         }
 
         @media (max-width: 480px) {
@@ -172,6 +178,14 @@
                 font-size: clamp(1.25rem, 8vw, 1.8rem);
             }
         }
+
+        /* Mobile specific text readability fixes */
+        @media (max-width: 768px) {
+            p {
+                text-rendering: optimizeLegibility;
+                letter-spacing: 0.01em;
+            }
+        }
     </style>
 <script type="importmap">
 {
@@ -180,7 +194,9 @@
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react/": "https://esm.sh/react@^19.2.4/",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "three": "https://esm.sh/three@0.170.0"
+    "three": "https://esm.sh/three@0.170.0",
+    "clsx": "https://esm.sh/clsx@^2.1.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.4.0"
   }
 }
 </script>
